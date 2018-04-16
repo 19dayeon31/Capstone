@@ -4,6 +4,7 @@ import pickle
 from tkinter import messagebox
 
 root = tkinter.Tk()
+root.resizable(width = False, height = False) # Keeping the window size constant
 
 root.title("Grade tracker")
 
@@ -94,23 +95,77 @@ btn_apply.grid(row = 7, column = 7)
 
 
 # TAB-SEMESTER 1
-lblfr = ttk.Labelframe(root)
+lb_topic = tkinter.Listbox(sem_1, height = 12)
+lb_topic.grid(row = 0, column = 0, rowspan = 7, columnspan = 2, sticky = 'W')
 
-lblfr_result = ttk.LabelFrame(sem_1, text = "Results")
-lblfr_result.grid(rowspan = 1, columnspan = 1)
+btn_add = tkinter.Button(sem_1, text = "Add Topic", command = exit)
+btn_add.grid(row = 7, column = 0, sticky = 'W')
+
+btn_delete = tkinter.Button(sem_1, text = "Delete", command = exit)
+btn_delete.grid(row = 7, column = 1, sticky = 'W')
 
 tree = ttk.Treeview(root)
 
-tree_main = ttk.Treeview(sem_1, columns = ("Test name", "Type", "%", "Grade"))
-tree_main.grid()
+tree_main = ttk.Treeview(sem_1, columns = ("Type", "%", "Grade"))
+tree_main.grid(row = 0, column = 2, rowspan = 7, sticky = 'N')
 
-tree_main.heading("Test name", text = "Test name")
 tree_main.heading("Type", text = "Type")
 tree_main.heading("%", text = "%")
 tree_main.heading("Grade", text = "Grade")
 
+lblfr = ttk.Labelframe(root)
+
+lblfr_result = ttk.LabelFrame(sem_1, text = "Results")
+lblfr_result.grid(row = 0, column = 3, sticky = 'E')
+
+total_score = ttk.Label(lblfr_result, text = "Total Score: ", font = ("Courier", 20))
+total_score.grid(row = 0, column = 0)
+
+lbl_total_score_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
+lbl_total_score_result.grid(row = 1, column = 0)
+
+final_grade = ttk.Label(lblfr_result, text = "Final Grade: ", font = ("Courier", 20))
+final_grade.grid(row = 2, column = 0)
+
+lbl_final_grade_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
+lbl_final_grade_result.grid(row = 3, column = 0)
 
 
+# TAB-SEMESTER 2
+lb_topic2 = tkinter.Listbox(sem_2, height = 12)
+lb_topic2.grid(row = 0, column = 0, rowspan = 7, columnspan = 2, sticky = 'W')
+
+btn_add = tkinter.Button(sem_2, text = "Add Topic", command = exit)
+btn_add.grid(row = 7, column = 0, sticky = 'W')
+
+btn_delete = tkinter.Button(sem_2, text = "Delete", command = exit)
+btn_delete.grid(row = 7, column = 1, sticky = 'W')
+
+tree = ttk.Treeview(root)
+
+tree_main = ttk.Treeview(sem_2, columns = ("Type", "%", "Grade"))
+tree_main.grid(row = 0, column = 2, rowspan = 7, sticky = 'N')
+
+tree_main.heading("Type", text = "Type")
+tree_main.heading("%", text = "%")
+tree_main.heading("Grade", text = "Grade")
+
+lblfr = ttk.Labelframe(root)
+
+lblfr_result = ttk.LabelFrame(sem_2, text = "Results")
+lblfr_result.grid(row = 0, column = 3, sticky = 'E')
+
+lbl_total_score = ttk.Label(lblfr_result, text = "Total Score: ", font = ("Courier", 20))
+lbl_total_score.grid(row = 0, column = 0)
+
+lbl_total_score_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
+lbl_total_score_result.grid(row = 1, column = 0)
+
+lbl_final_grade = ttk.Label(lblfr_result, text = "Final Grade: ", font = ("Courier", 20))
+lbl_final_grade.grid(row = 2, column = 0)
+
+lbl_final_grade_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
+lbl_final_grade_result.grid(row = 3, column = 0)
         
 # Instance
 #app = Window(apply)
