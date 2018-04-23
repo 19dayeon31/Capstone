@@ -66,6 +66,7 @@ def apply_subject():
 def add_topic_1():
   if txt_topic.get() != " ":
     topics_sem1.append(txt_topic.get())
+    #txt_topic.get() = [] # Creating list for treeview update
     update_listbox_delete()
     update_listbox()
     txt_topic.delete(0, "end")
@@ -74,7 +75,15 @@ def add_topic_1():
     messagebox.showinfo("Blank", "Please enter a topic name.")
 
 def insert_treeview():
-  pass
+  selection = lb_topic.curselection()
+  if selection:
+    tree_main.insert('', 0, text = txt_info_name.get(), values = (txt_info_type.get(), txt_info_per.get() + " %", txt_info_grade.get()))
+    txt_info_name.delete(0, "end")
+    txt_info_type.delete(0, "end")
+    txt_info_per.delete(0, "end")
+    txt_info_grade.delete(0, "end")
+  else: 
+    messagebox.showwarning("Select", "Please select a topic then apply.")
 
 def delete_1():
   topic = lb_topic.get("active")
@@ -150,44 +159,68 @@ btn_apply.grid(row = 7, column = 7)
 # TAB-SEMESTER 1
 lblfr = ttk.Labelframe(root)
 
-lblfr_info = ttk.LabelFrame(sem_1, text = "Information", font = ("Courier", 20)) # Information labelframe - top
-lblfr_info.grid()
+lblfr_info = ttk.LabelFrame(sem_1, text = "Information") # Information labelframe - top
+lblfr_info.grid(row = 0, column = 0, rowspan = 5, columnspan = 20, sticky = 'W')
 
-lblfr_info_name = ttk.Label(lblfr_info, text = "Assignment Name: ", font = ("Courier", 20))
-lblfr_info_name.grid()
+lbl_info_name = ttk.Label(lblfr_info, text = "Assignment Name: ", font = ("Courier", 15))
+lbl_info_name.grid(row = 0, column = 0)
+
+txt_info_name = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
+txt_info_name.grid(row = 0, column = 1)
+
+lbl_info_type = ttk.Label(lblfr_info, text = "Type: ", font = ("Courier", 15))
+lbl_info_type.grid(row = 1, column = 0)
+
+txt_info_type = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
+txt_info_type.grid(row = 1, column = 1)
+
+lbl_info_per = ttk.Label(lblfr_info, text = "%: ", font = ("Courier", 15))
+lbl_info_per.grid(row = 2, column = 0)
+
+txt_info_per = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
+txt_info_per.grid(row = 2, column = 1)
+
+lbl_info_grade = ttk.Label(lblfr_info, text = "Grade: ", font = ("Courier", 15))
+lbl_info_grade.grid(row = 3, column = 0)
+
+txt_info_grade = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
+txt_info_grade.grid(row = 3, column = 1)
+
+btn_info_apply = ttk.Button(lblfr_info, text = "Apply", command = insert_treeview)
+btn_info_apply.grid(row = 3, column = 2)
 
 txt_topic = ttk.Entry(sem_1, width = 19, font = ("Courier", 14)) # TxtEntry - top left
-txt_topic.grid(row = 0, column = 0, columnspan = 2, sticky = 'W')
+txt_topic.grid(row = 5, column = 0, columnspan = 2, sticky = 'W')
 
 lb_topic = tkinter.Listbox(sem_1, height = 10) # LB - middle left
-lb_topic.grid(row = 1, column = 0, rowspan = 7, columnspan = 2, sticky = 'W')
+lb_topic.grid(row = 6, column = 0, rowspan = 7, columnspan = 2, sticky = 'W')
 
 btn_add = tkinter.Button(sem_1, text = "Add Topic", command = add_topic_1)
-btn_add.grid(row = 8, column = 0, sticky = 'W')
+btn_add.grid(row = 13, column = 0, sticky = 'W')
 
 btn_delete = tkinter.Button(sem_1, text = "Delete", command = delete_1)
-btn_delete.grid(row = 8, column = 1, sticky = 'W')
+btn_delete.grid(row = 13, column = 1, sticky = 'W')
 
 tree = ttk.Treeview(root)# Treeview - middle
 
 tree_main = ttk.Treeview(sem_1, columns = ("Type", "%", "Grade"))
-tree_main.grid(row = 0, column = 3, rowspan = 20, sticky = 'N')
+tree_main.grid(row = 5, column = 3, rowspan = 20, sticky = 'N')
 
 tree_main.heading("Type", text = "Type")
 tree_main.heading("%", text = "%")
 tree_main.heading("Grade", text = "Grade")
 
 lblfr_result = ttk.LabelFrame(sem_1, text = "Results") # Result labelframe - right
-lblfr_result.grid(row = 0, column = 4, rowspan = 4, sticky = 'E')
+lblfr_result.grid(row = 5, column = 4, rowspan = 4, sticky = 'E')
 
-total_score = ttk.Label(lblfr_result, text = "Total Score: ", font = ("Courier", 20))
-total_score.grid(row = 0, column = 0)
+lbl_total_score = ttk.Label(lblfr_result, text = "Total Score: ", font = ("Courier", 20))
+lbl_total_score.grid(row = 0, column = 0)
 
 lbl_total_score_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
 lbl_total_score_result.grid(row = 1, column = 0)
 
-final_grade = ttk.Label(lblfr_result, text = "Final Grade: ", font = ("Courier", 20))
-final_grade.grid(row = 2, column = 0)
+lbl_final_grade = ttk.Label(lblfr_result, text = "Final Grade: ", font = ("Courier", 20))
+lbl_final_grade.grid(row = 2, column = 0)
 
 lbl_final_grade_result = ttk.Label(lblfr_result, text = "", font = ("Courier", 20))
 lbl_final_grade_result.grid(row = 3, column = 0)
