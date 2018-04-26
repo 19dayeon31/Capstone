@@ -1,10 +1,14 @@
 import tkinter
 from tkinter import ttk
+from tkinter import *
 import pickle
 from tkinter import messagebox
 
+
 root = tkinter.Tk()
 root.resizable(width = False, height = False) # Keeping the window size constant
+
+btn1 = StringVar()
 
 root.title("Grade tracker")
 
@@ -28,7 +32,9 @@ notebook.grid(row = 0)
 # Dictionary/List
 basic_info = {}
 topics_sem1 = []
+score_topic1 = []
 topics_sem2 = []
+score_topic2 = []
 
 
 # Functions for buttons
@@ -74,14 +80,111 @@ def add_topic_1():
   else:
     messagebox.showinfo("Blank", "Please enter a topic name.")
 
-def insert_treeview():
+def apply():
   selection = lb_topic.curselection()
   if selection:
-    tree_main.insert('', 0, text = txt_info_name.get(), values = (txt_info_type.get(), txt_info_per.get() + " %", txt_info_grade.get()))
+    score_topic1.append(int(txt_info_per.get()))
+    if btn1.get() == "Assignment" or btn1.get() == "Test" or btn1.get() == "Rest":
+      tree_main.insert('', "end", text = txt_info_name.get(), values = (btn1.get(), txt_info_per.get() + " %", txt_info_grade.get()))
+    #elif btn1.get() == "Assignment":
+     # tree_main.insert('', "end", text = txt_info_name.get(), values = (btn1.get(), txt_info_per.get() + " %", txt_info_grade.get()))
+   # elif btn1.get() == "Assignment":
+    #  tree_main.insert('', "end", text = txt_info_name.get(), values = (btn1.get(), txt_info_per.get() + " %", txt_info_grade.get()))
     txt_info_name.delete(0, "end")
-    txt_info_type.delete(0, "end")
     txt_info_per.delete(0, "end")
     txt_info_grade.delete(0, "end")
+    total_score = 0
+    # final score calculation
+    for score in score_topic1:
+      total_score += score
+      final_score = total_score/len(score_topic1)
+      lbl_total_score_result["text"] = final_score
+    # Final Grade
+    choice = basic_info.keys()
+    list_a = basic_info[choice]
+    values = list_a[0]
+    if values.upper() == "AP":
+      if final_score >= 95:
+        lbl_final_grade_result["text"] = "A+"
+      elif final_score < 95 and final_score >= 90:
+        lbl_final_grade_result["text"] = "A"
+      elif final_score < 90 and final_score >= 85:
+        lbl_final_grade_result["text"] = "A-"
+      elif final_score < 85 and final_score >= 80:
+        lbl_final_grade_result["text"] = "B+"
+      elif final_score < 80 and final_score >= 70:
+        lbl_final_grade_result["text"] = "B"
+      elif final_score < 70 and final_score >= 65:
+        lbl_final_grade_result["text"] = "B-"
+      elif final_score < 65 and final_score >= 60:
+        lbl_final_grade_result["text"] = "C+"
+      elif final_score < 60 and final_score >= 50:
+        lbl_final_grade_result["text"] = "C"
+      elif final_score < 50 and final_score >= 45:
+        lbl_final_grade_result["text"] = "C-"
+      elif final_score < 45 and final_score >= 42:
+        lbl_final_grade_result["text"] = "D+"
+      elif final_score < 42 and final_score >= 38:
+        lbl_final_grade_result["text"] = "D"
+      elif final_score < 38 and final_score >= 35:
+        lbl_final_grade_result["text"] = "D-"
+      else:
+        lbl_final_grade_result["text"] = "F"
+    elif values.upper() == "NORMAL":
+      if final_score >= 97:
+        lbl_final_grade_result["text"] = "A+"
+      elif final_score < 97 and final_score >= 93:
+        lbl_final_grade_result["text"] = "A"
+      elif final_score < 93 and final_score >= 90:
+        lbl_final_grade_result["text"] = "A-"
+      elif final_score < 90 and final_score >= 87:
+        lbl_final_grade_result["text"] = "B+"
+      elif final_score < 87 and final_score >= 83:
+        lbl_final_grade_result["text"] = "B"
+      elif final_score < 83 and final_score >= 80:
+        lbl_final_grade_result["text"] = "B-"
+      elif final_score < 80 and final_score >= 77:
+        lbl_final_grade_result["text"] = "C+"
+      elif final_score < 77 and final_score >= 73:
+        lbl_final_grade_result["text"] = "C"
+      elif final_score < 73 and final_score >= 70:
+        lbl_final_grade_result["text"] = "C-"
+      elif final_score < 70 and final_score >= 67:
+        lbl_final_grade_result["text"] = "D+"
+      elif final_score < 67 and final_score >= 63:
+        lbl_final_grade_result["text"] = "D"
+      elif final_score < 63 and final_score >= 60:
+        lbl_final_grade_result["text"] = "D-"
+      else:
+        lbl_final_grade_result["text"] = "F"
+    elif values.upper() == "SCIENCE":
+      if final_score >= 95:
+        lbl_final_grade_result["text"] = "A+"
+      elif final_score < 95 and final_score >= 90:
+        lbl_final_grade_result["text"] = "A"
+      elif final_score < 90 and final_score >= 85:
+        lbl_final_grade_result["text"] = "A-"
+      elif final_score < 85 and final_score >= 80:
+        lbl_final_grade_result["text"] = "B+"
+      elif final_score < 80 and final_score >= 75:
+        lbl_final_grade_result["text"] = "B"
+      elif final_score < 75 and final_score >= 70:
+        lbl_final_grade_result["text"] = "B-"
+      elif final_score < 70 and final_score >= 65:
+        lbl_final_grade_result["text"] = "C+"
+      elif final_score < 65 and final_score >= 60:
+        lbl_final_grade_result["text"] = "C"
+      elif final_score < 60 and final_score >= 55:
+        lbl_final_grade_result["text"] = "C-"
+      elif final_score < 55 and final_score >= 50:
+        lbl_final_grade_result["text"] = "D+"
+      elif final_score < 50 and final_score >= 45:
+        lbl_final_grade_result["text"] = "D"
+      elif final_score < 45 and final_score >= 40:
+        lbl_final_grade_result["text"] = "D-"
+      else:
+        lbl_final_grade_result["text"] = "F"
+    
   else: 
     messagebox.showwarning("Select", "Please select a topic then apply.")
 
@@ -150,8 +253,8 @@ txt_rest.grid(row = 6, column = 5)
 lbl_per3 = ttk.Label(home, text = "%", font = ("Courier", 18))
 lbl_per3.grid(row = 6, column = 6)
 
-btn_apply = ttk.Button(home, text = "Apply", command = apply_subject)
-btn_apply.grid(row = 7, column = 7)
+btn_apply_sub = ttk.Button(home, text = "Apply", command = apply_subject)
+btn_apply_sub.grid(row = 7, column = 7)
 
 
 
@@ -171,8 +274,14 @@ txt_info_name.grid(row = 0, column = 1)
 lbl_info_type = ttk.Label(lblfr_info, text = "Type: ", font = ("Courier", 15))
 lbl_info_type.grid(row = 1, column = 0)
 
-txt_info_type = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
-txt_info_type.grid(row = 1, column = 1)
+rb_info_type_a = ttk.Radiobutton(lblfr_info, text = "Assignment", value = "Assignment", variable = btn1)
+rb_info_type_a.grid(row = 1, column = 1)
+
+rb_info_type_t = ttk.Radiobutton(lblfr_info, text = "Test", value = "Test", variable = btn1)
+rb_info_type_t.grid(row = 1, column = 2)
+
+rb_info_type_r = ttk.Radiobutton(lblfr_info, text = "Rest", value = "Rest", variable = btn1)
+rb_info_type_r.grid(row = 1, column = 3)
 
 lbl_info_per = ttk.Label(lblfr_info, text = "%: ", font = ("Courier", 15))
 lbl_info_per.grid(row = 2, column = 0)
@@ -186,7 +295,7 @@ lbl_info_grade.grid(row = 3, column = 0)
 txt_info_grade = ttk.Entry(lblfr_info, width = 15, font = ("Courier", 15))
 txt_info_grade.grid(row = 3, column = 1)
 
-btn_info_apply = ttk.Button(lblfr_info, text = "Apply", command = insert_treeview)
+btn_info_apply = ttk.Button(lblfr_info, text = "Apply", command = apply)
 btn_info_apply.grid(row = 3, column = 2)
 
 txt_topic = ttk.Entry(sem_1, width = 19, font = ("Courier", 14)) # TxtEntry - top left
@@ -229,6 +338,38 @@ lbl_final_grade_result.grid(row = 3, column = 0)
 
 
 # TAB-SEMESTER 2
+lblfr = ttk.Labelframe(root)
+
+lblfr_info2 = ttk.LabelFrame(sem_2, text = "Information") # Information labelframe - top
+lblfr_info2.grid(row = 0, column = 0, rowspan = 5, columnspan = 20, sticky = 'W')
+
+lbl_info_name2 = ttk.Label(lblfr_info2, text = "Assignment Name: ", font = ("Courier", 15))
+lbl_info_name2.grid(row = 0, column = 0)
+
+txt_info_name2 = ttk.Entry(lblfr_info2, width = 15, font = ("Courier", 15))
+txt_info_name2.grid(row = 0, column = 1)
+
+lbl_info_type2 = ttk.Label(lblfr_info2, text = "Type: ", font = ("Courier", 15))
+lbl_info_type2.grid(row = 1, column = 0)
+
+txt_info_type2 = ttk.Entry(lblfr_info2, width = 15, font = ("Courier", 15))
+txt_info_type2.grid(row = 1, column = 1)
+
+lbl_info_per2 = ttk.Label(lblfr_info2, text = "%: ", font = ("Courier", 15))
+lbl_info_per2.grid(row = 2, column = 0)
+
+txt_info_per2 = ttk.Entry(lblfr_info2, width = 15, font = ("Courier", 15))
+txt_info_per2.grid(row = 2, column = 1)
+
+lbl_info_grade2 = ttk.Label(lblfr_info2, text = "Grade: ", font = ("Courier", 15))
+lbl_info_grade2.grid(row = 3, column = 0)
+
+txt_info_grade2 = ttk.Entry(lblfr_info2, width = 15, font = ("Courier", 15))
+txt_info_grade2.grid(row = 3, column = 1)
+
+btn_info_apply2 = ttk.Button(lblfr_info2, text = "Apply", command = apply)
+btn_info_apply2.grid(row = 3, column = 2)
+
 txt_topic2 = ttk.Entry(sem_2, width = 19, font = ("Courier", 14))
 txt_topic2.grid(row = 0, column = 0, columnspan = 2, sticky = 'W')
 
