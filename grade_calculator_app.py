@@ -221,7 +221,7 @@ def apply2():
       test2.append(int(txt_info_per2.get()))
     elif btn2.get() == "Rest":
       rest2.append(int(txt_info_per2.get()))
-    tree_main2.insert('', "end", text = txt_info_name2.get(), values = (btn2.get(), txt_info_per2.get() + " %", txt_info_grade2.get()))
+    tree_main2.insert('', "end", text = txt_info_name2.get(), values = (btn2.get(), txt_info_per2.get() + " %", txt_info_grade2.get(), txt_info_topic2.get()))
     txt_info_topic2.delete(0, "end")
     txt_info_name2.delete(0, "end")
     txt_info_per2.delete(0, "end")
@@ -345,6 +345,7 @@ def apply2():
 
 # Exam
 def freedom():
+  print("FREEDOM")
   global final_score
   global final_score2
   global overall
@@ -353,35 +354,37 @@ def freedom():
   values = list_a[0]
   if txt_exam_score.get() != "":
     if values.upper() == "SCIENCE":
-      overall = (final_score * 0.8) + (int(txt_exam_score.get()) * 0.2)
+      overall = (final_score * 0.8) + ((float(txt_exam_score.get())) * 0.2)
+      lbl_overall_score_result["text"] = overall
       if overall >= 95:
-        lbl_final_grade_result2["text"] = "A+"
+        lbl_overall_grade_result["text"] = "A+"
       elif overall < 95 and overall >= 90:
-        lbl_final_grade_result2["text"] = "A"
+        lbl_overall_grade_result["text"] = "A"
       elif overall < 90 and overall >= 85:
-        lbl_final_grade_result2["text"] = "A-"
+        lbl_overall_grade_result["text"] = "A-"
       elif overall < 85 and overall >= 80:
-        lbl_final_grade_result2["text"] = "B+"
+        lbl_overall_grade_result["text"] = "B+"
       elif overall < 80 and overall >= 75:
-        lbl_final_grade_result2["text"] = "B"
+        lbl_overall_grade_result["text"] = "B"
       elif overall < 75 and overall >= 70:
-        lbl_final_grade_result2["text"] = "B-"
+        lbl_overall_grade_result["text"] = "B-"
       elif overall < 70 and overall >= 65:
-        lbl_final_grade_result2["text"] = "C+"
+        lbl_overall_grade_result["text"] = "C+"
       elif overall < 65 and overall >= 60:
-        lbl_final_grade_result2["text"] = "C"
+        lbl_overall_grade_result["text"] = "C"
       elif overall < 60 and overall >= 55:
-        lbl_final_grade_result2["text"] = "C-"
+        lbl_overall_grade_result["text"] = "C-"
       elif overall < 55 and overall >= 50:
-        lbl_final_grade_result2["text"] = "D+"
+        lbl_overall_grade_result["text"] = "D+"
       elif overall < 50 and overall >= 45:
-        lbl_final_grade_result2["text"] = "D"
+        lbl_overall_grade_result["text"] = "D"
       elif overall < 45 and overall >= 40:
-        lbl_final_grade_result2["text"] = "D-"
+        lbl_overall_grade_result["text"] = "D-"
       else:
-        lbl_final_grade_result2["text"] = "F"
-    elif values.upper() == "NORMAL":
-      overall = (final_score * 0.4) + (final_score2 * 0.4) + (int(txt_exam_score.get()) * 0.2)
+        lbl_overall_grade_result["text"] = "F"
+    if values.upper() == "NORMAL":
+      overall = (final_score * 0.4) + (final_score2 * 0.4) + ((float(txt_exam_score.get())) * 0.2)
+      lbl_overall_score_result["text"] = overall
       if overall >= 97:
         lbl_overall_grade_result["text"] = "A+"
       elif overall < 97 and overall >= 93:
@@ -669,6 +672,6 @@ lbl_overall_grade.grid()
 lbl_overall_grade_result = ttk.Label(exam, text = "", font = ("Courier", 20))
 lbl_overall_grade_result.grid()
 
-        
+
 
 tkinter.mainloop()
