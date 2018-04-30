@@ -345,7 +345,6 @@ def apply2():
 
 # Exam
 def freedom():
-  print("FREEDOM")
   global final_score
   global final_score2
   global overall
@@ -453,7 +452,7 @@ lbl_name.grid(row = 1, column = 0, columnspan = 7)
 txt_name = ttk.Entry(home, width = 10, font = ("Courier", 18))
 txt_name.grid(row = 2, column = 0, columnspan = 7)
 
-lbl_kind = ttk.Label(home, text = "  What kind of subject is it?(Pre-AP is considered as an AP subject) \n                            AP/Normal/Science", font = ("Courier", 18))
+lbl_kind = ttk.Label(home, text = "  What kind of subject is it?(Pre-AP is considered as a normal subject) \n                            AP/Normal/Science", font = ("Courier", 18))
 lbl_kind.grid(row = 3, column = 0, columnspan = 7)
 
 txt_kind = ttk.Entry(home, width = 10, font = ("Courier", 18))
@@ -651,7 +650,7 @@ lbl_final_grade_result2.grid(row = 3, column = 0)
 lbl_exam_score = ttk.Label(exam, text = "What is your score for the Final Exam?", font = ("Courier", 20))
 lbl_exam_score.grid()
 
-lbl_exam_notification = ttk.Label(exam, text = "Just click the button if there is no exam for the subject.", font = ("Courier", 20))
+lbl_exam_notification = ttk.Label(exam, text = "Just click the button if it is an AP subject.", font = ("Courier", 20))
 lbl_exam_notification.grid()
 
 txt_exam_score = ttk.Entry(exam, width = 10, font = ("Courier", 20))
